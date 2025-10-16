@@ -4,13 +4,15 @@ import pandas as pd
 import plotly.express as px
 from datetime import datetime, timedelta
 
-
+import os
 # ---------------------- 1. 数据库工具函数（连接/查询） ----------------------
 def get_db_connection():
-    """连接数据库"""
-    conn = sqlite3.connect(r'C:\Users\86136\PyCharmMiscProject\pest_control_system\pest_control.db')
-    conn.row_factory = sqlite3.Row  # 支持按列名获取数据
-    return conn
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        # 拼接数据库文件路径
+        db_path = os.path.join(current_dir, "pest_control.db")
+        conn = sqlite3.connect(db_path)
+        conn.row_factory = sqlite3.Row  # 支持按列名获取数据
+        return conn
 
 
 def fetch_data(query, params=()):
@@ -23,11 +25,10 @@ def fetch_data(query, params=()):
 
 # ---------------------- 2. 页面布局与导航 ----------------------
 st.set_page_config(
-    page_title="智虫防 - 大数据虫害防治系统",
-    page_icon="🐜",
-    layout="wide"  # 宽屏布局
+    page_title="智能虫防系统",
+    page_icon="🐛",  # 这里要确保标点和语法正确
+    layout="wide"
 )
-
 # 导航栏（侧边栏）
 st.sidebar.title("智虫防系统")
 nav_option = st.sidebar.radio(
